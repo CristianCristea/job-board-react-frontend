@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import JobsList from './components/JobsList';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <h1>Jobs</h1>
       <JobsList />
     </div>

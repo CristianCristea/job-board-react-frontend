@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const NewJobForm = (props) => {
-  const [job, setJob] = useState(props.initialFormState);
+const EditJobForm = (props) => {
+  const [job, setJob] = useState(props.currentJob);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setJob({ ...job, [name]: value });
   };
 
@@ -13,12 +13,7 @@ const NewJobForm = (props) => {
       onSubmit={(event) => {
         event.preventDefault();
         if (!job.company || !job.position || !job.description) return;
-
-        // Add job
-        props.addJob(job);
-
-        // Reset form
-        setJob(props.initialFormState);
+        props.updateJob(job);
       }}
     >
       <label>Company</label>
@@ -27,8 +22,7 @@ const NewJobForm = (props) => {
         name='company'
         value={job.company}
         onChange={handleInputChange}
-      />
-
+      ></input>
       <label>Position</label>
       <input
         type='text'
@@ -36,7 +30,6 @@ const NewJobForm = (props) => {
         value={job.position}
         onChange={handleInputChange}
       ></input>
-
       <label>Description</label>
       <input
         type='text'
@@ -45,9 +38,10 @@ const NewJobForm = (props) => {
         onChange={handleInputChange}
       ></input>
 
-      <input type='submit' value='Create' />
+      <button>Update Job</button>
+      <button onClick={() => props.setEditing(false)}>Cancel</button>
     </form>
   );
 };
 
-export default NewJobForm;
+export default EditJobForm;
